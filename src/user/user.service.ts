@@ -45,14 +45,14 @@ export class UserService {
   async login(
     loginUserDto: LoginUserDto,
   ): Promise<{ access_token: string; user: User }> {
-    const { username, email, password } = loginUserDto;
+    const { email, password } = loginUserDto;
 
     // Find user by username
     // Find user by username or email
     const user = await this.userRepository.findOne({
-      where: [{ username }, { email }],
+      where: { email },
     });
-    console.log('user', user);
+    console.log('user', user, password);
 
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');

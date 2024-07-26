@@ -11,14 +11,14 @@ export class User {
   @Column()
   username: string;
 
-  @Column()
+  @Column({ type: 'text' })
   password: string;
 
   @Column({ unique: true })
   email: string;
 
-  @BeforeInsert()
-  async hashPassword() {
-    this.password = await bcrypt.hash(this.password, 10);
-  }
+  // @BeforeInsert()
+  // async hashPassword() {
+  //   this.password = await bcrypt.hash(this.password, 10);
+  // }
 }
