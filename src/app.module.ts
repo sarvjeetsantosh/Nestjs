@@ -4,7 +4,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
-
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -20,25 +19,15 @@ import { AppController } from './app.controller';
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
         synchronize: configService.get('DB_SYNC'),
-        
 
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        logging: false
+        logging: false,
       }),
       inject: [ConfigService],
     }),
     UserModule,
   ],
-  controllers:[AppController],
-  providers:[AppService]
+  controllers: [AppController],
+  providers: [AppService],
 })
-
-
-
-
-
-
-
-
-
 export class AppModule {}

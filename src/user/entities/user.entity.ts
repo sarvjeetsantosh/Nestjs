@@ -1,24 +1,24 @@
 // user.entity.ts
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { IsEmail, IsNotEmpty } from 'class-validator';
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import * as bcrypt from 'bcryptjs';
 
-@Entity()
+@Entity('user')
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  firstName: string;
-
-  @Column({ nullable: true })
-  lastName: string;
+  username: string;
 
   @Column()
+  password: string;
+
+  @Column({ unique: true })
   email: string;
 
-  @Column({ default: 10 })
-  age: number;
-
-  @Column()
-  gender: string;
-  
+  @BeforeInsert()
+  async hashPassword() {
+    this.password = await bcrypt.hash(this.password, 10);
+  }
 }
