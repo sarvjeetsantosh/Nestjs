@@ -12,6 +12,8 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { ResetPasswordDto } from './dto/reset-passwort.dto';
 
 @Controller('user')
 export class UserController {
@@ -46,5 +48,22 @@ export class UserController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
+  }
+
+  @Post('forgot-password')
+  async forgotPassword(
+    @Body() forgotPasswordDto: ForgotPasswordDto,
+  ): Promise<void> {
+    await this.userService.forgotPassword(forgotPasswordDto.email);
+  }
+
+  @Post('reset-password')
+  async resetPassword(
+    @Body() resetPasswordDto: ResetPasswordDto,
+  ): Promise<void> {
+    await this.userService.resetPassword(
+      resetPasswordDto.otp,
+      resetPasswordDto.newPassword,
+    );
   }
 }

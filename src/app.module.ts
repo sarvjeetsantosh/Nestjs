@@ -4,6 +4,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
+import { MailModule } from './mail/mail.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -26,6 +28,7 @@ import { AppController } from './app.controller';
       inject: [ConfigService],
     }),
     UserModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],
